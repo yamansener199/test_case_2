@@ -1,28 +1,35 @@
-on:
-  push:
-    branches: [master]
-  pull_request:
-    branches: [master]
-
+name: Terraform Deployment
+#on:
+#  push:
+#    branches: [master]
+#  pull_request:
+#    branches: [master]
 jobs:
-  build:
-    name: Build and Deploy Documentation
+  deploy:
     runs-on: ubuntu-latest
+
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: eu-west-2
+
     steps:
-      - name: Checkout Master
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Set up Python 3.7
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.x'
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 0.14.7
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install mkdocs-material
+    - name: Export AWS credentials
+      run: |
+        echo "export AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
+        echo "export AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
+        echo "export AWS_DEFAULT_REGION=us-west-2" >> $GITHUB_ENV
 
-      - name: Deploy
-        run: |
-          git pull
-          mkdocs gh-deploy
+    - name: Terraform Init and Apply for Tier 1
+      run: |
+        cd ./terraform
+        terraform init
+        terraform apply -auto-approve
