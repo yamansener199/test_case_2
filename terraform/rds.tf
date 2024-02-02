@@ -12,9 +12,9 @@ resource "aws_db_subnet_group" "db-subnet-grp" {
 # RDS (MYSQL)
 # ---------------------------------------------------------------------------------------------------------------------
 data "aws_secretsmanager_secret" "env_secrets" {
-  name = "RdsAdminCred"
+  name = "RdsAdminCreds"
   depends_on = [
-    aws_secretsmanager_secret.RdsAdminCred
+    aws_secretsmanager_secret.RdsAdminCreds
   ]
 }
 data "aws_secretsmanager_secret_version" "current_secrets" {
