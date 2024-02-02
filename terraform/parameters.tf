@@ -7,7 +7,7 @@ variable "RdsAdminCreds1" {
 }
 
 resource "aws_secretsmanager_secret" "RdsAdminCreds1" {
-  name = "RdsAdminCred"
+  name = "RdsAdminCred1"
 }
 resource "aws_secretsmanager_secret_version" "RdsAdminCreds1" {
   secret_id     = aws_secretsmanager_secret.RdsAdminCreds1.id
