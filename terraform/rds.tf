@@ -3,7 +3,7 @@
 # RDS DB SUBNET GROUP
 # ---------------------------------------------------------------------------------------------------------------------
 resource "aws_db_subnet_group" "db-subnet-grp" {
-  name        = "petclinic-db-sgrp"
+  name        = "app-db-sgrp"
   description = "Database Subnet Group"
   subnet_ids  = aws_subnet.private.*.id
 }
@@ -23,7 +23,7 @@ data "aws_secretsmanager_secret_version" "current_secrets" {
 
 
 resource "aws_db_instance" "db" {
-  identifier        = "petclinic"
+  identifier        = "app"
   allocated_storage = 5
   engine            = "mysql"
   engine_version    = "5.7"

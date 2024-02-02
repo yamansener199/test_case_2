@@ -110,23 +110,26 @@ resource "aws_codebuild_project" "codebuild" {
     type = "CODEPIPELINE"
     buildspec = <<BUILDSPEC
 version: 0.2
-runtime-versions:
-  java: openjdk8
 phases:
   install:
     runtime-versions:
-      docker: 18
+      nodejs: 14
+    commands:
+      - echo Installing source NPM dependencies...
+      - npm install
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-      - IMAGE_TAG=$${COMMIT_HASH:=latest}         
+      - IMAGE_TAG=$${COMMIT_HASH:=latest}
   build:
     commands:
       - echo Build started on `date`
-      - echo Building the jar
-      - mvn package
+      - echo Running lint...
+      - npm run lint # Optional: Run linting if your project includes it
+      - echo Running tests...
+      - npm test
       - echo Building the Docker image...
       - docker build -t $REPOSITORY_URI:latest .
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
@@ -139,6 +142,7 @@ phases:
       - printf '[{"name":"%s","imageUri":"%s"}]' $CONTAINER_NAME $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
 artifacts:
     files: imagedefinitions.json
+
 BUILDSPEC
   }
 }        

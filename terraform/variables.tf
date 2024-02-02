@@ -37,7 +37,7 @@ variable "aws_ecr" {
 
 variable "family" {
   description = "Family of the Task Definition"
-  default     = "petclinic"
+  default     = "app"
 }
 
 variable "container_port" {
@@ -72,7 +72,7 @@ variable "db_instance_type" {
 
 variable "db_name" {
   description = "RDS DB name"
-  default     = "petclinic"
+  default     = "app"
 }
 
 variable "db_user" {

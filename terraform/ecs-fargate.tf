@@ -50,24 +50,24 @@ resource "aws_ecs_task_definition" "task-def" {
     "environment": [
 
             {
-                "name": "spring.datasource.username",
+                "name": "DATABASE_USERNAME",
                 "value": "${var.db_user}"
             },
             {
-                "name": "spring.datasource.password",
+                "name": "DATABASE_PASSWORD",
                 "value": "${jsondecode(data.aws_secretsmanager_secret_version.current_secrets.secret_string)["password"]}"
             },
             {
-                "name": "spring.datasource.initialize",
-                "value": "${var.db_initialize}"
-            },
-            {
-                "name": "spring.profiles.active",
-                "value": "${var.db_profile}"
-            },
-            {
-                "name": "spring.datasource.url",
+                "name": "DATABASE_HOST",
                 "value": "jdbc:mysql://${aws_db_instance.db.address}/${var.db_name}"
+            },
+            {
+                "name": "DATABASE_NAME",
+                "value": "${var.db_name}"
+            },
+            {
+                "name": "DATABASE_PORT",
+                "value": "${aws_db_instance.db.port}"
             }
         ],
     "portMappings": [
