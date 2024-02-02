@@ -17,7 +17,7 @@ resource "aws_alb" "alb" {
 
 resource "aws_alb_target_group" "trgp" {
   name        = "${var.stack}-tgrp"
-  port        = 8080
+  port        = 3000
   protocol    = "HTTP"
   vpc_id      = aws_vpc.main.id
   target_type = "ip"
