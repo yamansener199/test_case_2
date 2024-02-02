@@ -20,7 +20,7 @@ jobs:
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v1
       with:
-        terraform_version: 0.15.5
+        terraform_version: 1.5
 
     - name: Export AWS credentials
       run: |
