@@ -1,9 +1,9 @@
 name: Terraform Deployment
-#on:
-#  push:
-#    branches: [master]
-#  pull_request:
-#    branches: [master]
+on:
+ push:
+   branches: [main]
+ pull_request:
+   branches: [main]
 jobs:
   deploy:
     runs-on: ubuntu-latest

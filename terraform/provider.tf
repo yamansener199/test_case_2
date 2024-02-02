@@ -12,11 +12,11 @@ terraform {
     }
   }
 
-  #backend "s3" {
-  #  bucket = "remote-backend-new"
-  #  key    = "prod/terraform.tfstate"
-  #  region = "eu-west-2"
-  #}
+  backend "s3" {
+   bucket = "testbucketforterraform8974"
+   key    = "prod/terraform.tfstate"
+   region = "eu-west-2"
+  }
 }
 
 provider "aws" {
