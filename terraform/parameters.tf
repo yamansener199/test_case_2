@@ -1,4 +1,4 @@
-variable "RdsAdminCreds" {
+variable "RdsAdminCreds1" {
   default = {
     username = "master_user"
     password = "dbadmin#02avia"
@@ -6,10 +6,10 @@ variable "RdsAdminCreds" {
   type = map(string)
 }
 
-resource "aws_secretsmanager_secret" "RdsAdminCreds" {
+resource "aws_secretsmanager_secret" "RdsAdminCreds1" {
   name = "RdsAdminCred"
 }
-resource "aws_secretsmanager_secret_version" "RdsAdminCreds" {
-  secret_id     = aws_secretsmanager_secret.RdsAdminCreds.id
-  secret_string = jsonencode(var.RdsAdminCreds)
+resource "aws_secretsmanager_secret_version" "RdsAdminCreds1" {
+  secret_id     = aws_secretsmanager_secret.RdsAdminCreds1.id
+  secret_string = jsonencode(var.RdsAdminCreds1)
 }
