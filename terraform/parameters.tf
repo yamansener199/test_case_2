@@ -1,7 +1,7 @@
 variable "RdsAdminCreds1" {
   default = {
-    username = "master_user"
-    password = "dbadmin#02avia"
+    username = "DUMMYUSER"
+    password = "DUMMYPASS"
   }
   type = map(string)
 }
