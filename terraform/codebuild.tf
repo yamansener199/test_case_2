@@ -115,7 +115,7 @@ phases:
     commands:
       - echo Installing source NPM dependencies...
       - npm install
-      - npm install esm
+      - npm run build
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
@@ -125,6 +125,8 @@ phases:
   build:
     commands:
       - echo Build started on `date`
+      - echo Running lint...
+      - npm run lint # Optional: Run linting if your project includes it
       - echo Running tests...
       - npm test
       - echo Building the Docker image...
