@@ -112,8 +112,6 @@ resource "aws_codebuild_project" "codebuild" {
 version: 0.2
 phases:
   install:
-    runtime-versions:
-      nodejs: 16
     commands:
       - echo Installing source NPM dependencies...
       - npm install
