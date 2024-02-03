@@ -115,6 +115,7 @@ phases:
     commands:
       - echo Installing source NPM dependencies...
       - npm install
+      - npm install esm
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
