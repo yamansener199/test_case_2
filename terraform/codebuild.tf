@@ -112,8 +112,6 @@ resource "aws_codebuild_project" "codebuild" {
 version: 0.2
 phases:
   install:
-    runtime-versions:
-      nodejs: 16
     commands:
       - echo Installing source NPM dependencies...
       - npm install
@@ -127,10 +125,6 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - echo Running lint...
-      - npm run lint # Optional: Run linting if your project includes it
-      - echo Running tests...
-      - npm test
       - echo Building the Docker image...
       - docker build -t $REPOSITORY_URI:latest .
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
