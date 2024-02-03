@@ -59,7 +59,7 @@ resource "aws_ecs_task_definition" "task-def" {
             },
             {
                 "name": "DATABASE_HOST",
-                "value": "${aws_db_instance.db.address}/${var.db_name}"
+                "value": "${aws_db_instance.db.address}"
             },
             {
                 "name": "DATABASE_NAME",
